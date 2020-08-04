@@ -38,7 +38,23 @@
     <template v-slot:top>
       <v-toolbar flat color="white">
         <!-- <v-toolbar-title>My CRUD</v-toolbar-title> -->
-        <v-divider class="mx-4" inset vertical></v-divider>
+        <v-dialog
+          v-model="reportDialog"
+          :overlay="false"
+          max-width="500px"
+          transition="dialog-transition"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon v-bind="attrs" v-on="on">
+              <v-icon>mdi-file-chart</v-icon>
+            </v-btn>
+          </template>
+          <v-card>
+            <report />
+          </v-card>
+        </v-dialog>
+
+        <v-divider inset vertical></v-divider>
         <v-spacer></v-spacer>
 
         <!-- dialog for CRUD ops -->
@@ -93,7 +109,11 @@
                           v-on="on"
                         ></v-text-field>
                       </template>
-                      <v-date-picker v-model="notebookItem.expenseDate" @input="menu = false"></v-date-picker>
+                      <v-date-picker
+                        header-color="blue-grey"
+                        v-model="notebookItem.expenseDate"
+                        @input="menu = false"
+                      ></v-date-picker>
                     </v-menu>
                   </v-col>
                   <v-col cols="12" sm="6" md="12">
@@ -131,12 +151,15 @@
 </template>
 <script>
 // import dateFormat from "@/utils/tools.js";
+import report from "./notebook_report.vue";
 export default {
+  components: { report },
   props: ["ExpenseDate"],
   data: () => ({
     textRow: "3",
     valid: false,
     dialog: false,
+    reportDialog: false,
     menu: false,
     basicRule: [
       (v) => !!v || "column is empty",

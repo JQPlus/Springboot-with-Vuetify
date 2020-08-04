@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.explore.galaxy.basic.modules.notebook.dao.NotebookMapper">
+    <resultMap id="BaseResultMap" type="com.explore.galaxy.basic.modules.notebook.support.entity.NotebookEntity">
+        <id column="notebook_id" jdbcType="VARCHAR" property="notebookID"/>
+        <result column="specific_expense" jdbcType="DECIMAL" property="specificExpense"/>
+        <result column="expense_date" jdbcType="TIMESTAMP" property="expenseDate"/>
+        <result column="expense_type" jdbcType="VARCHAR" property="expenseType"/>
+        <result column="created_user_id" jdbcType="VARCHAR" property="createdUserID"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    `notebook_id`, `specific_expense`, `expense_date`, `expense_type`, `created_user_id`, 
+    `created_time`, `updated_time`,`remark`
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `tb_notebook`
+        where `notebook_id` = #{notebookID,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from `tb_notebook`
+    where `notebook_id` = #{notebookID,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.explore.galaxy.basic.modules.notebook.support.entity.NotebookEntity">
+    insert into `tb_notebook` (`notebook_id`, `specific_expense`, `expense_date`, 
+      `expense_type`, `created_user_id`, `created_time`, 
+      `updated_time`)
+    values (#{notebookID,jdbcType=VARCHAR}, #{specificExpense,jdbcType=DECIMAL}, #{expenseDate,jdbcType=TIMESTAMP}, 
+      #{expenseType,jdbcType=VARCHAR}, #{createdUserID,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective"
+            parameterType="com.explore.galaxy.basic.modules.notebook.support.entity.NotebookEntity">
+        insert into `tb_notebook`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="notebookID != null">
+                `notebook_id`,
+            </if>
+            <if test="specificExpense != null">
+                `specific_expense`,
+            </if>
+            <if test="expenseDate != null">
+                `expense_date`,
+            </if>
+            <if test="expenseType != null">
+                `expense_type`,
+            </if>
+            <if test="createdUserID != null">
+                `created_user_id`,
+            </if>
+            <if test="createdTime != null">
+                `created_time`,
+            </if>
+            <if test="updatedTime != null">
+                `updated_time`,
+            </if>
+            <if test="remark != null">
+                `remark`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="notebookID != null">
+                #{notebookID,jdbcType=VARCHAR},
+            </if>
+            <if test="specificExpense != null">
+                #{specificExpense,jdbcType=DECIMAL},
+            </if>
+            <if test="expenseDate != null">
+                #{expenseDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="expenseType != null">
+                #{expenseType,jdbcType=VARCHAR},
+            </if>
+            <if test="createdUserID != null">
+                #{createdUserID,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.explore.galaxy.basic.modules.notebook.support.entity.NotebookEntity">
+        update `tb_notebook`
+        <set>
+            <if test="specificExpense != null">
+                `specific_expense` = #{specificExpense,jdbcType=DECIMAL},
+            </if>
+            <if test="expenseDate != null">
+                `expense_date` = #{expenseDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="expenseType != null">
+                `expense_type` = #{expenseType,jdbcType=VARCHAR},
+            </if>
+            <if test="createdUserID != null">
+                `created_user_id` = #{createdUserID,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                `created_time` = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null">
+                `updated_time` = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                `remark` = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where `notebook_id` = #{notebookID,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey"
+            parameterType="com.explore.galaxy.basic.modules.notebook.support.entity.NotebookEntity">
+    update `tb_notebook`
+    set `specific_expense` = #{specificExpense,jdbcType=DECIMAL},
+      `expense_date` = #{expenseDate,jdbcType=TIMESTAMP},
+      `expense_type` = #{expenseType,jdbcType=VARCHAR},
+      `created_user_id` = #{createdUserID,jdbcType=VARCHAR},
+      `created_time` = #{createdTime,jdbcType=TIMESTAMP},
+      `updated_time` = #{updatedTime,jdbcType=TIMESTAMP},
+      `remark` = #{remark,jdbcType=VARCHAR},
+    where `notebook_id` = #{notebookID,jdbcType=VARCHAR}
+  </update>
+    <select id="retrieveAllNotebook" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `tb_notebook`
+    </select>
+
+    <select id="retrieveByExpenseDate" resultMap="BaseResultMap">
+        select
+        note.*,ca.`category_name` as "expenseTypeName"
+        from `tb_notebook` note
+        left join `tb_category` ca on ca.`category_id` = note.`expense_type`
+        where `expense_date` = #{expenseDate}
+    </select>
+</mapper>

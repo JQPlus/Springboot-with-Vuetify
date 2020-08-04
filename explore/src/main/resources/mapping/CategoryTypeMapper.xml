@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.explore.galaxy.basic.modules.categoryType.dao.CategoryTypeMapper">
+  <resultMap id="BaseResultMap" type="com.explore.galaxy.basic.modules.categoryType.support.entity.CategoryTypeEntity">
+    <id column="category_type_id" jdbcType="VARCHAR" property="categoryTypeId" />
+    <result column="category_type_name" jdbcType="VARCHAR" property="categoryTypeName" />
+    <result column="category_type_code" jdbcType="VARCHAR" property="categoryTypeCode" />
+    <result column="created_user_id" jdbcType="VARCHAR" property="createdUserId" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="updated_user_id" jdbcType="VARCHAR" property="updatedUserId" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    `category_type_id`, `category_type_name`, `category_type_code`, `created_user_id`,
+    `created_time`, `updated_user_id`, `updated_time`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `tb_category_type`
+    where `category_type_id` = #{categoryTypeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from `tb_category_type`
+    where `category_type_id` = #{categoryTypeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.explore.galaxy.basic.modules.categoryType.support.entity.CategoryTypeEntity">
+    insert into `tb_category_type` (`category_type_id`, `category_type_name`,
+      `category_type_code`, `created_user_id`, `created_time`, 
+      `updated_user_id`, `updated_time`)
+    values (#{categoryTypeId,jdbcType=VARCHAR}, #{categoryTypeName,jdbcType=VARCHAR},
+      #{categoryTypeCode,jdbcType=VARCHAR}, #{createdUserId,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedUserId,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.explore.galaxy.basic.modules.categoryType.support.entity.CategoryTypeEntity">
+    insert into `tb_category_type`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="categoryTypeId != null">
+        `category_type_id`,
+      </if>
+      <if test="categoryTypeName != null">
+        `category_type_name`,
+      </if>
+      <if test="categoryTypeCode != null">
+        `category_type_code`,
+      </if>
+      <if test="createdUserId != null">
+        `created_user_id`,
+      </if>
+      <if test="createdTime != null">
+        `created_time`,
+      </if>
+      <if test="updatedUserId != null">
+        `updated_user_id`,
+      </if>
+      <if test="updatedTime != null">
+        `updated_time`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="categoryTypeId != null">
+        #{categoryTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryTypeName != null">
+        #{categoryTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryTypeCode != null">
+        #{categoryTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createdUserId != null">
+        #{createdUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedUserId != null">
+        #{updatedUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.explore.galaxy.basic.modules.categoryType.support.entity.CategoryTypeEntity">
+    update `tb_category_type`
+    <set>
+      <if test="categoryTypeName != null">
+        `category_type_name` = #{categoryTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryTypeCode != null">
+        `category_type_code` = #{categoryTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createdUserId != null">
+        `created_user_id` = #{createdUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        `created_time` = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedUserId != null">
+        `updated_user_id` = #{updatedUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        `updated_time` = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where `category_type_id` = #{categoryTypeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.explore.galaxy.basic.modules.categoryType.support.entity.CategoryTypeEntity">
+    update `tb_category_type`
+    set `category_type_name` = #{categoryTypeName,jdbcType=VARCHAR},
+      `category_type_code` = #{categoryTypeCode,jdbcType=VARCHAR},
+      `created_user_id` = #{createdUserId,jdbcType=VARCHAR},
+      `created_time` = #{createdTime,jdbcType=TIMESTAMP},
+      `updated_user_id` = #{updatedUserId,jdbcType=VARCHAR},
+      `updated_time` = #{updatedTime,jdbcType=TIMESTAMP}
+    where `category_type_id` = #{categoryTypeId,jdbcType=VARCHAR}
+  </update>
+</mapper>

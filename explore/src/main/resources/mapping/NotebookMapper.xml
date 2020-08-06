@@ -142,4 +142,11 @@
         left join `tb_category` ca on ca.`category_id` = note.`expense_type`
         where `expense_date` = #{expenseDate}
     </select>
+    <select id="retrieveByExpenseDateRange" resultType="java.lang.Integer">
+        select
+        distinct
+        SUM(`specific_expense`) OVER (PARTITION BY `expense_date`)
+        from `tb_notebook`
+        where `expense_date` >= #{startDate} and #{endDate} >= `expense_date`
+    </select>
 </mapper>

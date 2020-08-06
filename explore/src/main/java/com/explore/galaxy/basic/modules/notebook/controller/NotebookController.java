@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/notebook")
 public class NotebookController {
     @Autowired
-    private  INotebookService iNotebookService;
+    private INotebookService iNotebookService;
 
     @DeleteMapping("delete")
     public int deleteByPrimaryKey(@RequestBody String notebookID) {
@@ -39,4 +39,10 @@ public class NotebookController {
         return iNotebookService.retrieveByExpenseDate(expenseDate);
     }
 
+    @PostMapping("retrieveByExpenseDateRange")
+    List<Integer> retrieveByExpenseDateRange(@RequestBody List<String> currentDate) {
+        String startDate = currentDate.get(0);
+        String endDate = currentDate.get(1);
+        return iNotebookService.retrieveByExpenseDateRange(startDate, endDate);
+    }
 }

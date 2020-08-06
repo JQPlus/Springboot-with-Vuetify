@@ -47,4 +47,9 @@ public class NotebookServiceImpl implements INotebookService {
     public List<NotebookEntity> retrieveByExpenseDate(String expenseDate) {
         return notebookMapper.retrieveByExpenseDate(expenseDate);
     }
+
+    @Override
+    public List<Integer> retrieveByExpenseDateRange(String startDate, String endDate) {
+        return notebookMapper.retrieveByExpenseDateRange(startDate, endDate);
+    }
 }

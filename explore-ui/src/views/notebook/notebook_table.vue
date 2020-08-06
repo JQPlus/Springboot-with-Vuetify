@@ -50,7 +50,7 @@
             </v-btn>
           </template>
           <v-card>
-            <report />
+            <report :ReportDialog.sync="reportDialog" />
           </v-card>
         </v-dialog>
 

@@ -20,4 +20,5 @@ public interface CategoryMapper {
     int updateByPrimaryKey(CategoryEntity record);
 
     List<CategoryEntity> getCategoryByTypeCode(String categoryCode);
+
 }

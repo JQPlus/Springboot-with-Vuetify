@@ -22,4 +22,6 @@ public interface NotebookMapper {
     List<NotebookEntity> retrieveAllNotebook();
 
     List<NotebookEntity> retrieveByExpenseDate(String expenseDate);
+
+    List<Integer> retrieveByExpenseDateRange(String startDate, String endDate);
 }

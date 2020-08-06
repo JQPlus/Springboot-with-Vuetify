@@ -5,6 +5,7 @@ const api = {
     insertNotebookInfo: 'notebook/insert',
     deleteNotebookInfo: 'notebook/delete',
     retrieveByExpenseDate: 'notebook/retrieveByExpenseDate',
+    retrieveByExpenseDateRange:'notebook/retrieveByExpenseDateRange',
     // category module
     getCategoryByTypeCode: 'category/getCategoryByTypeCode',
 }

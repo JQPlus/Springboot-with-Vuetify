@@ -1,23 +1,25 @@
+let routePrefix = process.env.VUE_APP_ROUTE_PREFIX
 
 const routes = [
     {
-        path: '/',
-        name: 'Dashboard',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue')
+        path: routePrefix + '/',
+        name: 'dashboard',
+        component: () => import('../views/dashboard.vue')
     },
     {
-        path: '/about',
-        name: 'About',
+        path: routePrefix + '/about',
+        name: 'about',
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+        component: () => import(/* webpackChunkName: "about" */ '../views/about.vue')
     },
     {
-        path: '/notebook',
+        path: routePrefix + '/notebook',
         name: 'notebook',
-        component: () => import(/* webpackChunkName: "about" */ '../views/notebook/index.vue')
+        component: () => import('../views/notebook/index.vue')
     },
+
 
 ]
 export default routes

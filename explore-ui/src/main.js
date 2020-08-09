@@ -8,7 +8,7 @@ import '@mdi/font/css/materialdesignicons.css'
 import axios from '@/axios/index.js'
 import url from '@/axios/api.js'
 import tools from "@/utils/tools.js"
-import message from "@/components/Message.vue"
+import message from "@/components/message.vue"
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios

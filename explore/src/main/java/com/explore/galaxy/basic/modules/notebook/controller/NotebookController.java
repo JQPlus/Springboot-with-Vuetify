@@ -1,11 +1,11 @@
 package com.explore.galaxy.basic.modules.notebook.controller;
 
-import com.explore.galaxy.basic.modules.notebook.dao.NotebookMapper;
 import com.explore.galaxy.basic.modules.notebook.service.INotebookService;
-import com.explore.galaxy.basic.modules.notebook.support.entity.NotebookEntity;
+import com.explore.galaxy.basic.modules.notebook.entity.NotebookEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -40,7 +40,7 @@ public class NotebookController {
     }
 
     @PostMapping("retrieveByExpenseDateRange")
-    List<Integer> retrieveByExpenseDateRange(@RequestBody List<String> currentDate) {
+    List<BigDecimal> retrieveByExpenseDateRange(@RequestBody List<String> currentDate) {
         String startDate = currentDate.get(0);
         String endDate = currentDate.get(1);
         return iNotebookService.retrieveByExpenseDateRange(startDate, endDate);

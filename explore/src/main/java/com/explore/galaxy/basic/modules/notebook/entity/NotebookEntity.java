@@ -1,4 +1,4 @@
-package com.explore.galaxy.basic.modules.notebook.support.entity;
+package com.explore.galaxy.basic.modules.notebook.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;

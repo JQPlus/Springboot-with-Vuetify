@@ -1,7 +1,8 @@
 package com.explore.galaxy.basic.modules.notebook.service;
 
-import com.explore.galaxy.basic.modules.notebook.support.entity.NotebookEntity;
+import com.explore.galaxy.basic.modules.notebook.entity.NotebookEntity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface INotebookService {
@@ -17,5 +18,5 @@ public interface INotebookService {
 
     List<NotebookEntity> retrieveByExpenseDate(String expenseDate);
 
-    List<Integer> retrieveByExpenseDateRange(String startDate, String endDate);
+    List<BigDecimal> retrieveByExpenseDateRange(String startDate, String endDate);
 }

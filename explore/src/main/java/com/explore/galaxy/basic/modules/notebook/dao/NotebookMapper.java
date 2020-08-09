@@ -1,8 +1,9 @@
 package com.explore.galaxy.basic.modules.notebook.dao;
 
-import com.explore.galaxy.basic.modules.notebook.support.entity.NotebookEntity;
+import com.explore.galaxy.basic.modules.notebook.entity.NotebookEntity;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -23,5 +24,5 @@ public interface NotebookMapper {
 
     List<NotebookEntity> retrieveByExpenseDate(String expenseDate);
 
-    List<Integer> retrieveByExpenseDateRange(String startDate, String endDate);
+    List<BigDecimal> retrieveByExpenseDateRange(String startDate, String endDate);
 }

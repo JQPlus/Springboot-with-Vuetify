@@ -1,6 +1,6 @@
 package com.explore.galaxy.basic.modules.category.service;
 
-import com.explore.galaxy.basic.modules.category.support.entity.CategoryEntity;
+import com.explore.galaxy.basic.modules.category.entity.CategoryEntity;
 
 import java.util.List;
 

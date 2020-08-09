@@ -1,4 +1,4 @@
-package com.explore.galaxy.basic.modules.categoryType.support.entity;
+package com.explore.galaxy.basic.modules.categoryType.entity;
 
 import java.util.Date;
 

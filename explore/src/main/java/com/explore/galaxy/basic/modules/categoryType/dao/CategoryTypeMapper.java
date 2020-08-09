@@ -1,6 +1,6 @@
 package com.explore.galaxy.basic.modules.categoryType.dao;
 
-import com.explore.galaxy.basic.modules.categoryType.support.entity.CategoryTypeEntity;
+import com.explore.galaxy.basic.modules.categoryType.entity.CategoryTypeEntity;
 
 public interface CategoryTypeMapper {
     int deleteByPrimaryKey(String categoryTypeId);

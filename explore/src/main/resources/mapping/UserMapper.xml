@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.explore.galaxy.basic.modules.user.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.explore.galaxy.basic.modules.user.entity.UserEntity">
+    <id column="user_id" jdbcType="VARCHAR" property="userID" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="phone" jdbcType="INTEGER" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="created_user_id" jdbcType="VARCHAR" property="createdUserID" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="updated_user_id" jdbcType="VARCHAR" property="updatedUserID" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    `user_id`, `user_name`, `account`, `password`, `phone`, `email`, `created_user_id`, 
+    `created_time`, `updated_user_id`, `updated_time`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `tb_user`
+    where `user_id` = #{userID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from `tb_user`
+    where `user_id` = #{userID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.explore.galaxy.basic.modules.user.entity.UserEntity">
+    insert into `tb_user` (`user_id`, `user_name`, `account`, 
+      `password`, `phone`, `email`, 
+      `created_user_id`, `created_time`, `updated_user_id`, 
+      `updated_time`)
+    values (#{userID,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{phone,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, 
+      #{createdUserID,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedUserID,jdbcType=VARCHAR}, 
+      #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.explore.galaxy.basic.modules.user.entity.UserEntity">
+    insert into `tb_user`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userID != null">
+        `user_id`,
+      </if>
+      <if test="userName != null">
+        `user_name`,
+      </if>
+      <if test="account != null">
+        `account`,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="phone != null">
+        `phone`,
+      </if>
+      <if test="email != null">
+        `email`,
+      </if>
+      <if test="createdUserID != null">
+        `created_user_id`,
+      </if>
+      <if test="createdTime != null">
+        `created_time`,
+      </if>
+      <if test="updatedUserID != null">
+        `updated_user_id`,
+      </if>
+      <if test="updatedTime != null">
+        `updated_time`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userID != null">
+        #{userID,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createdUserID != null">
+        #{createdUserID,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedUserID != null">
+        #{updatedUserID,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.explore.galaxy.basic.modules.user.entity.UserEntity">
+    update `tb_user`
+    <set>
+      <if test="userName != null">
+        `user_name` = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        `account` = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        `phone` = #{phone,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        `email` = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createdUserID != null">
+        `created_user_id` = #{createdUserID,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        `created_time` = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedUserID != null">
+        `updated_user_id` = #{updatedUserID,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        `updated_time` = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where `user_id` = #{userID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.explore.galaxy.basic.modules.user.entity.UserEntity">
+    update `tb_user`
+    set `user_name` = #{userName,jdbcType=VARCHAR},
+      `account` = #{account,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      `phone` = #{phone,jdbcType=INTEGER},
+      `email` = #{email,jdbcType=VARCHAR},
+      `created_user_id` = #{createdUserID,jdbcType=VARCHAR},
+      `created_time` = #{createdTime,jdbcType=TIMESTAMP},
+      `updated_user_id` = #{updatedUserID,jdbcType=VARCHAR},
+      `updated_time` = #{updatedTime,jdbcType=TIMESTAMP}
+    where `user_id` = #{userID,jdbcType=VARCHAR}
+  </update>
+</mapper>

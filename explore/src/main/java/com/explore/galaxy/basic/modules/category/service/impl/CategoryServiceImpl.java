@@ -2,7 +2,7 @@ package com.explore.galaxy.basic.modules.category.service.impl;
 
 import com.explore.galaxy.basic.modules.category.dao.CategoryMapper;
 import com.explore.galaxy.basic.modules.category.service.ICategoryService;
-import com.explore.galaxy.basic.modules.category.support.entity.CategoryEntity;
+import com.explore.galaxy.basic.modules.category.entity.CategoryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

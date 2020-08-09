@@ -1,4 +1,4 @@
-package com.explore.galaxy.basic.utils.UUIDUtils;
+package com.explore.galaxy.basic.utils.uuid;
 
 import java.util.UUID;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.explore.galaxy.basic.modules.notebook.dao.NotebookMapper">
-    <resultMap id="BaseResultMap" type="com.explore.galaxy.basic.modules.notebook.support.entity.NotebookEntity">
+    <resultMap id="BaseResultMap" type="com.explore.galaxy.basic.modules.notebook.entity.NotebookEntity">
         <id column="notebook_id" jdbcType="VARCHAR" property="notebookID"/>
         <result column="specific_expense" jdbcType="DECIMAL" property="specificExpense"/>
         <result column="expense_date" jdbcType="TIMESTAMP" property="expenseDate"/>
@@ -25,7 +25,7 @@
     delete from `tb_notebook`
     where `notebook_id` = #{notebookID,jdbcType=VARCHAR}
   </delete>
-    <insert id="insert" parameterType="com.explore.galaxy.basic.modules.notebook.support.entity.NotebookEntity">
+    <insert id="insert" parameterType="com.explore.galaxy.basic.modules.notebook.entity.NotebookEntity">
     insert into `tb_notebook` (`notebook_id`, `specific_expense`, `expense_date`, 
       `expense_type`, `created_user_id`, `created_time`, 
       `updated_time`)
@@ -34,7 +34,7 @@
       #{updatedTime,jdbcType=TIMESTAMP})
   </insert>
     <insert id="insertSelective"
-            parameterType="com.explore.galaxy.basic.modules.notebook.support.entity.NotebookEntity">
+            parameterType="com.explore.galaxy.basic.modules.notebook.entity.NotebookEntity">
         insert into `tb_notebook`
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="notebookID != null">
@@ -90,7 +90,7 @@
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective"
-            parameterType="com.explore.galaxy.basic.modules.notebook.support.entity.NotebookEntity">
+            parameterType="com.explore.galaxy.basic.modules.notebook.entity.NotebookEntity">
         update `tb_notebook`
         <set>
             <if test="specificExpense != null">
@@ -118,7 +118,7 @@
         where `notebook_id` = #{notebookID,jdbcType=VARCHAR}
     </update>
     <update id="updateByPrimaryKey"
-            parameterType="com.explore.galaxy.basic.modules.notebook.support.entity.NotebookEntity">
+            parameterType="com.explore.galaxy.basic.modules.notebook.entity.NotebookEntity">
     update `tb_notebook`
     set `specific_expense` = #{specificExpense,jdbcType=DECIMAL},
       `expense_date` = #{expenseDate,jdbcType=TIMESTAMP},
@@ -142,7 +142,7 @@
         left join `tb_category` ca on ca.`category_id` = note.`expense_type`
         where `expense_date` = #{expenseDate}
     </select>
-    <select id="retrieveByExpenseDateRange" resultType="java.lang.Integer">
+    <select id="retrieveByExpenseDateRange" resultType="java.math.BigDecimal">
         select
         distinct
         SUM(`specific_expense`) OVER (PARTITION BY `expense_date`)

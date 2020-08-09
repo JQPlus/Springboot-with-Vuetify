@@ -1,6 +1,6 @@
 package com.explore.galaxy.basic.modules.category.dao;
 
-import com.explore.galaxy.basic.modules.category.support.entity.CategoryEntity;
+import com.explore.galaxy.basic.modules.category.entity.CategoryEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

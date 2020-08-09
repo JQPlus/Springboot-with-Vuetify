@@ -147,6 +147,7 @@ export default {
         .post(this.$url.retrieveByExpenseDateRange, dateRange)
         .then((res) => {
           this.chartValue = res;
+          console.log(res);
         });
     },
   },
@@ -155,11 +156,11 @@ export default {
   },
   watch: {
     ReportDialog() {
+      this.initChart(this.currentDate);
       if (!this.ReportDialog) {
         //slow the UI render speed
         setTimeout(() => {
           this.currentDate = this.defaultDate;
-          this.initChart(this.currentDate);
         }, 500);
       }
     },

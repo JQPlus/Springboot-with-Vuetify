@@ -44,7 +44,7 @@
             targetPackage     指定生成的model生成所在的包名
             targetProject     指定在该项目下所在的路径
         -->
-        <javaModelGenerator targetPackage="com.explore.galaxy.basic.modules.category.support.entity"
+        <javaModelGenerator targetPackage="com.explore.galaxy.basic.modules.user.entity"
                             targetProject="src/main/java">
             <!-- 是否对model添加 构造函数 -->
             <property name="constructorBased" value="false"/>
@@ -74,7 +74,7 @@
                 type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
                 type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
         -->
-        <javaClientGenerator targetPackage="com.explore.galaxy.basic.modules.category.dao"
+        <javaClientGenerator targetPackage="com.explore.galaxy.basic.modules.user.dao"
                              targetProject="src\main\java"
                              type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
@@ -102,9 +102,9 @@
 
         <!-- 取消生成Example-class,自定义实体类和Mapper映射文件的名字-->
         <!-- 对于MYSQL 6.x后的版本会不能正常生成mapper接口，所以需要去修改mysql版本-->
-        <table schema="public" tableName="tb_category"
-               domainObjectName="CategoryEntity"
-               mapperName="CategoryMapper"
+        <table schema="public" tableName="tb_user"
+               domainObjectName="UserEntity"
+               mapperName="UserMapper"
                delimitIdentifiers="true"
                delimitAllColumns="true"
                enableCountByExample="false"

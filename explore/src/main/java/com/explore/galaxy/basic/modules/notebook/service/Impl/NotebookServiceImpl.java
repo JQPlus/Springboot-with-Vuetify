@@ -1,12 +1,13 @@
-package com.explore.galaxy.basic.modules.notebook.service.serviceImpl;
+package com.explore.galaxy.basic.modules.notebook.service.Impl;
 
 import com.explore.galaxy.basic.modules.notebook.dao.NotebookMapper;
 import com.explore.galaxy.basic.modules.notebook.service.INotebookService;
-import com.explore.galaxy.basic.modules.notebook.support.entity.NotebookEntity;
-import com.explore.galaxy.basic.utils.UUIDUtils.UUIDUtils;
+import com.explore.galaxy.basic.modules.notebook.entity.NotebookEntity;
+import com.explore.galaxy.basic.utils.uuid.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class NotebookServiceImpl implements INotebookService {
     }
 
     @Override
-    public List<Integer> retrieveByExpenseDateRange(String startDate, String endDate) {
+    public List<BigDecimal> retrieveByExpenseDateRange(String startDate, String endDate) {
         return notebookMapper.retrieveByExpenseDateRange(startDate, endDate);
     }
 }

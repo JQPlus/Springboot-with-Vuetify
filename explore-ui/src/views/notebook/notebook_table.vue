@@ -147,6 +147,15 @@
     <template v-slot:no-data>
       <!-- <v-btn color="primary" @click="initialize">Reset</v-btn> -->
     </template>
+
+    <template v-slot:body.prepend="{ headers }">
+      <tr>
+        <td :colspan="headers.length">
+          <span>Day Expense: {{dayExpense}}</span>
+          <span style="padding-left:5%">Month Expense: {{monthExpense}}</span>
+        </td>
+      </tr>
+    </template>
   </v-data-table>
 </template>
 <script>
@@ -207,6 +216,9 @@ export default {
       remark: null,
     },
     expenseTypeList: [],
+    dayExpense: 0,
+    monthExpense: 0,
+    strYearMonth: new Date().toISOString().substr(0, 7),
   }),
 
   computed: {
@@ -222,7 +234,12 @@ export default {
     ExpenseDate() {
       this.initialize();
       this.notebookItem.expenseDate = this.ExpenseDate;
+      this.strYearMonth = this.ExpenseDate.substring(0, 7);
+      this.getDayExpense();
     },
+    // strYearMonth() {
+    //   this.getMonthExpense();
+    // },
   },
   beforeCreate() {
     this.$http
@@ -236,7 +253,10 @@ export default {
   created() {
     this.initialize();
   },
-  mounted() {},
+  mounted() {
+    this.getMonthExpense();
+    this.getDayExpense();
+  },
   methods: {
     validate() {
       this.$refs.form.validate();
@@ -265,9 +285,15 @@ export default {
           this.tableLoading = true;
           this.itemInfo = res;
           this.tableLoading = false;
-          this.$http.get(this.$url.retrieveAllNotebook).then((res) => {
-            this.$emit("getItemInfo", res);
-          });
+          this.getMonthExpense();
+          this.getDayExpense();
+          this.$http
+            .get(this.$url.retrieveDailyExpense, {
+              strYearMonth: this.strYearMonth,
+            })
+            .then((res) => {
+              this.$emit("getItemInfo", res);
+            });
         });
     },
 
@@ -321,6 +347,24 @@ export default {
         }
         this.close();
       }
+    },
+    getMonthExpense() {
+      this.$http
+        .get(this.$url.getMonthExpense, {
+          strYearMonth: this.strYearMonth,
+        })
+        .then((res) => {
+          this.monthExpense = res === null ? 0 : res;
+        });
+    },
+    getDayExpense() {
+      this.$http
+        .get(this.$url.getDayExpense, {
+          strDay: this.ExpenseDate,
+        })
+        .then((res) => {
+          this.dayExpense = res === null ? 0 : res;
+        });
     },
   },
 };

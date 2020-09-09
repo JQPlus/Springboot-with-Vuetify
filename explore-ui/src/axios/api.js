@@ -4,12 +4,14 @@ const api = {
     logout: "login/logout",
     verify: "login/verify",
     // notebook module
-    retrieveAllNotebook: 'notebook/retrieveAllNotebook',
+    retrieveDailyExpense: 'notebook/retrieveDailyExpense',
     updateNotebookInfo: 'notebook/update',
     insertNotebookInfo: 'notebook/insert',
     deleteNotebookInfo: 'notebook/delete',
     retrieveByExpenseDate: 'notebook/retrieveByExpenseDate',
     retrieveByExpenseDateRange: 'notebook/retrieveByExpenseDateRange',
+    getMonthExpense: 'notebook/getMonthExpense',
+    getDayExpense: 'notebook/getDayExpense',
     // category module
     getCategoryByTypeCode: 'category/getCategoryByTypeCode',
 }

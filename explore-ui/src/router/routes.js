@@ -19,6 +19,11 @@ const routes = [
         name: 'notebook',
         component: () => import('../views/notebook/index.vue')
     },
+    {
+        path: routePrefix + '/file',
+        name: 'file',
+        component: () => import('../views/file.vue')
+    },
 
 
 ]

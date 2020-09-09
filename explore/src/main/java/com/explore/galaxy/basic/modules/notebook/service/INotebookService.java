@@ -14,9 +14,13 @@ public interface INotebookService {
 
     int updateByPrimaryKeySelective(NotebookEntity record);
 
-    List<NotebookEntity> retrieveAllNotebook();
+    List<NotebookEntity> retrieveDailyExpense(String strYearMonth);
 
     List<NotebookEntity> retrieveByExpenseDate(String expenseDate);
 
     List<BigDecimal> retrieveByExpenseDateRange(String startDate, String endDate);
+
+    BigDecimal getMonthExpense(String strYearMonth);
+
+    BigDecimal getDayExpense(String strDay);
 }

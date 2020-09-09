@@ -58,6 +58,7 @@ export default {
         { title: "Dashboard", icon: "mdi-view-dashboard", to: "/" },
         { title: "NoteBook", icon: "mdi-image", to: "notebook" },
         { title: "About", icon: "mdi-help-box", to: "about" },
+        { title: "File", icon: "mdi-help-box", to: "file" },
       ],
       color: "blue-grey",
       colors: ["primary", "blue", "success", "red", "teal"],

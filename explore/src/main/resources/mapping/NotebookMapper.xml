@@ -129,10 +129,13 @@
       `remark` = #{remark,jdbcType=VARCHAR},
     where `notebook_id` = #{notebookID,jdbcType=VARCHAR}
   </update>
-    <select id="retrieveAllNotebook" resultMap="BaseResultMap">
+    <select id="retrieveDailyExpense" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        distinct
+        SUM(`specific_expense`) OVER (PARTITION BY `expense_date`) as "dailyExpense",
+        `expense_date`
         from `tb_notebook`
+        where DATE_FORMAT(expense_date, '%Y-%m')  = #{strYearMonth}
     </select>
 
     <select id="retrieveByExpenseDate" resultMap="BaseResultMap">
@@ -148,5 +151,16 @@
         SUM(`specific_expense`) OVER (PARTITION BY `expense_date`)
         from `tb_notebook`
         where `expense_date` >= #{startDate} and #{endDate} >= `expense_date`
+        order by `expense_date` desc
+    </select>
+    <select id="getMonthExpense" resultType="java.math.BigDecimal">
+        select SUM(specific_expense)
+        from tb_notebook
+        where DATE_FORMAT(expense_date, '%Y-%m')  = #{strYearMonth}
+    </select>
+    <select id="getDayExpense" resultType="java.math.BigDecimal">
+        select distinct SUM(specific_expense) OVER (PARTITION BY `expense_date`)
+        from tb_notebook
+        where `expense_date`  = #{strDay}
     </select>
 </mapper>

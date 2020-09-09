@@ -9,7 +9,9 @@
           scrollable
           elevation="3"
           full-width
+          reactive
           @change="changeMonth"
+          @input="change"
           :events="functionEvents"
           header-color="blue-grey"
         ></v-date-picker>
@@ -37,7 +39,11 @@ export default {
       this.notebookInfo = info;
     },
     changeMonth(dateTime) {
+      console.log(dateTime);
       this.dateModel = dateTime;
+    },
+    change(month) {
+      console.log(month);
     },
     functionEvents(date) {
       if (this.notebookInfo.length === 0) {
@@ -50,10 +56,10 @@ export default {
         this.notebookInfo.forEach((element) => {
           expenseDate = element.expenseDate;
           switch (true) {
-            case element.specificExpense > 40:
+            case element.dailyExpense > 40:
               redArr.push(expenseDate);
               break;
-            case element.specificExpense > 30:
+            case element.dailyExpense > 30:
               orangeArr.push(expenseDate);
               break;
             default:

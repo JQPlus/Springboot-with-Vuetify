@@ -29,9 +29,9 @@ public class NotebookController {
         return iNotebookService.updateByPrimaryKeySelective(record);
     }
 
-    @GetMapping("retrieveAllNotebook")
-    public List<NotebookEntity> retrieveAllNotebook() {
-        return iNotebookService.retrieveAllNotebook();
+    @GetMapping("retrieveDailyExpense")
+    public List<NotebookEntity> retrieveDailyExpense(@RequestParam String strYearMonth) {
+        return iNotebookService.retrieveDailyExpense(strYearMonth);
     }
 
     @PostMapping("retrieveByExpenseDate")
@@ -44,5 +44,15 @@ public class NotebookController {
         String startDate = currentDate.get(0);
         String endDate = currentDate.get(1);
         return iNotebookService.retrieveByExpenseDateRange(startDate, endDate);
+    }
+
+    @GetMapping("getMonthExpense")
+    public BigDecimal getMonthExpense(@RequestParam String strYearMonth) {
+        return iNotebookService.getMonthExpense(strYearMonth);
+    }
+
+    @GetMapping("getDayExpense")
+    public BigDecimal getDayExpense(@RequestParam String strDay) {
+        return iNotebookService.getDayExpense(strDay);
     }
 }

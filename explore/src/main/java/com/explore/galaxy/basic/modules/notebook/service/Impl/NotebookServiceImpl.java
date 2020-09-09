@@ -40,8 +40,8 @@ public class NotebookServiceImpl implements INotebookService {
     }
 
     @Override
-    public List<NotebookEntity> retrieveAllNotebook() {
-        return notebookMapper.retrieveAllNotebook();
+    public List<NotebookEntity> retrieveDailyExpense(String strYearMonth) {
+        return notebookMapper.retrieveDailyExpense(strYearMonth);
     }
 
     @Override
@@ -52,5 +52,16 @@ public class NotebookServiceImpl implements INotebookService {
     @Override
     public List<BigDecimal> retrieveByExpenseDateRange(String startDate, String endDate) {
         return notebookMapper.retrieveByExpenseDateRange(startDate, endDate);
+    }
+
+    @Override
+    public BigDecimal getMonthExpense(String strYearMonth)
+    {
+        return notebookMapper.getMonthExpense(strYearMonth);
+    }
+
+    @Override
+    public BigDecimal getDayExpense(String strDay){
+        return notebookMapper.getDayExpense(strDay);
     }
 }

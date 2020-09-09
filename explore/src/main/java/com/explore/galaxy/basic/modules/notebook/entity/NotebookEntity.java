@@ -27,6 +27,8 @@ public class NotebookEntity {
     //扩展字段
     private String expenseTypeName;
 
+    private BigDecimal dailyExpense;
+
     public String getNotebookID() {
         return notebookID;
     }
@@ -100,5 +102,13 @@ public class NotebookEntity {
 
     public void setExpenseTypeName(String expenseTypeName) {
         this.expenseTypeName = expenseTypeName;
+    }
+
+    public BigDecimal getDailyExpense() {
+        return dailyExpense;
+    }
+
+    public void setDailyExpense(BigDecimal dailyExpense) {
+        this.dailyExpense = dailyExpense;
     }
 }

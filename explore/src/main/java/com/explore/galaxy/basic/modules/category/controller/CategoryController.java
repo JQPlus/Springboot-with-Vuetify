@@ -3,6 +3,7 @@ package com.explore.galaxy.basic.modules.category.controller;
 import com.explore.galaxy.basic.modules.category.service.ICategoryService;
 import com.explore.galaxy.basic.modules.category.entity.CategoryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

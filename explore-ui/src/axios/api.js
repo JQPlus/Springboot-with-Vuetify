@@ -14,6 +14,8 @@ const api = {
     getDayExpense: 'notebook/getDayExpense',
     // category module
     getCategoryByTypeCode: 'category/getCategoryByTypeCode',
+    //mail
+    sendMail:'mail/send'
 }
 
 export default api

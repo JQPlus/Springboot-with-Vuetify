@@ -14,6 +14,7 @@
     <v-btn color="success" @click="uploadFiles">Upload</v-btn>
     <v-btn color="success" @click="downloadFile">Download</v-btn>
     <v-btn color="success" @click="previewFile">Preview</v-btn>
+    <v-btn color="success" @click="sendMail">mail</v-btn>
   </div>
 </template>
 
@@ -35,6 +36,19 @@ export default {
     },
     previewFile() {
       this.$file.preview("test", "Space.png");
+    },
+    sendMail() {
+      let entity = {
+        to: ["543796673@qq.com"],
+        cc: null,
+        title: "test",
+        content: 1,
+        mailFile: null,
+      };
+      console.log(entity);
+      // this.$http.post(this.$url.sendMail, entity).then((res) => {
+      //   console.log(res);
+      // });
     },
   },
 };

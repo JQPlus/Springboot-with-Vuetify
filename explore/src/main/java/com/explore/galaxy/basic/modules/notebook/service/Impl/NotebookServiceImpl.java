@@ -18,7 +18,10 @@ public class NotebookServiceImpl implements INotebookService {
 
     @Override
     public int deleteByPrimaryKey(String notebookID) {
-        return notebookMapper.deleteByPrimaryKey(notebookID);
+        if (notebookMapper.selectByPrimaryKey(notebookID) != null) {
+            return notebookMapper.deleteByPrimaryKey(notebookID);
+        }
+        return 0;
     }
 
     @Override
@@ -55,13 +58,12 @@ public class NotebookServiceImpl implements INotebookService {
     }
 
     @Override
-    public BigDecimal getMonthExpense(String strYearMonth)
-    {
+    public BigDecimal getMonthExpense(String strYearMonth) {
         return notebookMapper.getMonthExpense(strYearMonth);
     }
 
     @Override
-    public BigDecimal getDayExpense(String strDay){
+    public BigDecimal getDayExpense(String strDay) {
         return notebookMapper.getDayExpense(strDay);
     }
 }

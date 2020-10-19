@@ -15,7 +15,6 @@ public class CategoryServiceImpl implements ICategoryService {
     private CategoryMapper categoryMapper;
     @Override
     public List<CategoryEntity> getCategoryByTypeCode(String categoryCode) {
-        ArrayList
         return categoryMapper.getCategoryByTypeCode(categoryCode);
     }
 }

@@ -26,13 +26,6 @@ public class GalaxyApplication {
 //        {
 //            System.out.println(str);
 //        }
-        CategoryController categoryController=new CategoryController();
-        Field[]fields = categoryController.getClass().getDeclaredFields();
-        for(Field str: fields)
-        {
-            Object o = str.getClass();
-            System.out.println(str.getType());
-        }
     }
 
 }

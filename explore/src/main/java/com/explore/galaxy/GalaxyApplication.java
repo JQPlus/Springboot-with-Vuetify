@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 @SpringBootApplication
 //@EnableCaching
@@ -26,6 +29,8 @@ public class GalaxyApplication {
 //        {
 //            System.out.println(str);
 //        }
+
+        List<String> a = new LinkedList<>();
     }
 
 }

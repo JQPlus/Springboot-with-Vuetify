@@ -1,5 +1,6 @@
 package com.explore.galaxy.basic.utils.tool.mail.service.impl;
 
+import com.explore.galaxy.basic.utils.exception.MailException;
 import com.explore.galaxy.basic.utils.tool.mail.expand.MailEntity;
 import com.explore.galaxy.basic.utils.tool.mail.service.IMailInitService;
 import com.explore.galaxy.basic.utils.tool.mail.service.IMailSendService;
@@ -17,15 +18,11 @@ public class MailInitServiceImpl implements IMailInitService {
     private IMailSendService iMailSendService;
 
     @Override
-    public void sendBasicMail(MailEntity entity) {
-        try {
+    public void sendBasicMail(MailEntity entity) throws InterruptedException {
             String[] to = entity.getTo();
             String[] cc = entity.getCc();
             String title = entity.getTitle();
             String content = entity.getContent();
             iMailSendService.sendMail(to, cc, title, content);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
     }
 }

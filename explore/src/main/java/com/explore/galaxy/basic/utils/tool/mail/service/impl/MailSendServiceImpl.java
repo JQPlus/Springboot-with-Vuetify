@@ -1,17 +1,15 @@
 package com.explore.galaxy.basic.utils.tool.mail.service.impl;
 
-import com.explore.galaxy.basic.utils.tool.mail.config.MailConfiguration;
 import com.explore.galaxy.basic.utils.tool.mail.expand.MailEntity;
 import com.explore.galaxy.basic.utils.tool.mail.service.IMailSendService;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.internet.InternetAddress;
@@ -23,6 +21,7 @@ import java.util.Date;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.TimeUnit;
 
 import static org.apache.logging.log4j.LogManager.getLogger;
 
@@ -42,15 +41,16 @@ public class MailSendServiceImpl implements IMailSendService, Runnable {
     private JavaMailSender javaMailSender;
 
     @Autowired
+    @Qualifier(value = "mailThreadPool")
     private ExecutorService executorService;
 
     @Autowired
     private MailSendServiceImpl mailSendService;
 
-     /**
-       * @auther: Huang Jiaqi
-       * @description: request method has to be post
-      */
+    /**
+     * @auther: Huang Jiaqi
+     * @description: request method has to be post
+     */
     @Override
     public void sendMailWithFile(@NotNull @NotEmpty String[] to,
                                  String[] cc,
@@ -63,7 +63,8 @@ public class MailSendServiceImpl implements IMailSendService, Runnable {
         entity.setTitle(title);
         entity.setContent(content);
         entity.setMailFile(mailFile);
-        queue.put(entity);
+        //如果队列已满，那么会等待1000ms后(循环)直到插入队列
+        queue.offer(entity, 1000, TimeUnit.MILLISECONDS);
         executorService.execute(mailSendService);
     }
 
@@ -75,7 +76,7 @@ public class MailSendServiceImpl implements IMailSendService, Runnable {
         entity.setTitle(title);
         entity.setContent(content);
         entity.setMailFile(null);
-        queue.put(entity);
+        queue.offer(entity, 1000, TimeUnit.MILLISECONDS);
         executorService.execute(mailSendService);
     }
 
@@ -84,7 +85,13 @@ public class MailSendServiceImpl implements IMailSendService, Runnable {
      */
     @Override
     public void run() {
-        MailEntity entity = queue.poll();
+        MailEntity entity = null;
+        try {
+            entity = queue.poll(100, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            logger.error("邮件发送失败", e.getMessage());
+        }
         sendRealMail(entity);
     }
 
@@ -134,7 +141,6 @@ public class MailSendServiceImpl implements IMailSendService, Runnable {
             return null;
         }
     }
-
 
     private String ReadFile(InputStream input, String str) {
         try {

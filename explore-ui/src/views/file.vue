@@ -33,7 +33,7 @@ export default {
     },
     downloadFile() {
       this.$file.download("test", "test.xlsx");
-    },
+      },
     previewFile() {
       this.$file.preview("test", "Space.png");
     },
@@ -45,10 +45,9 @@ export default {
         content: 1,
         mailFile: null,
       };
-      console.log(entity);
-      // this.$http.post(this.$url.sendMail, entity).then((res) => {
-      //   console.log(res);
-      // });
+      this.$http.post(this.$url.sendMail, entity).then((res) => {
+        console.log(res);
+      });
     },
   },
 };

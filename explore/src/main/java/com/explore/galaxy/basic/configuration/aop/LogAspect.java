@@ -8,6 +8,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
+import java.util.Date;
+
 @Component
 @Aspect
 public class LogAspect {
@@ -57,13 +59,14 @@ public class LogAspect {
 //    public void doAfter() {
 //        LOGGER.info("doAfter");
 //    }
- /**
-   * @param ex Exception
-   * @description: 将异常写入到log
-  */
+
+    /**
+     * @param ex Exception
+     * @description: 将异常写入到log
+     */
     @AfterThrowing(pointcut = "webLog()", throwing = "ex")
     public void logAfterThrowingAllMethods(Exception ex) throws Throwable {
-        LOGGER.error("****LoggingAspect.logAfterThrowingAllMethods() " + ex);
+        LOGGER.error("****LoggingAspect.logAfterThrowingAllMethods()" + new Date().toString() + ":" + ex);
     }
 //
 //    @AfterReturning("webLog()")

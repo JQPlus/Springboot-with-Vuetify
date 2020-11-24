@@ -200,6 +200,7 @@ public class FileService {
                 .body(new FileSystemResource(file));
     }
 
+
     private static MediaType getMediaType(String streamType) {
         MediaType contentType = null;
         switch (streamType) {

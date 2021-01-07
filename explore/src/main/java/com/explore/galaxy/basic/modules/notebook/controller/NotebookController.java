@@ -1,7 +1,8 @@
 package com.explore.galaxy.basic.modules.notebook.controller;
 
-import com.explore.galaxy.basic.modules.notebook.service.INotebookService;
 import com.explore.galaxy.basic.modules.notebook.entity.NotebookEntity;
+import com.explore.galaxy.basic.modules.notebook.service.INotebookService;
+import com.explore.galaxy.basic.utils.responseBody.IBasicResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +21,12 @@ public class NotebookController {
     }
 
     @PostMapping("insert")
-    public int insertSelective(@RequestBody NotebookEntity record) {
+    public IBasicResponse insertSelective(@RequestBody NotebookEntity record) {
         return iNotebookService.insertSelective(record);
     }
 
     @PostMapping("update")
-    public int updateByPrimaryKeySelective(@RequestBody NotebookEntity record) {
+    public IBasicResponse updateByPrimaryKeySelective(@RequestBody NotebookEntity record) {
         return iNotebookService.updateByPrimaryKeySelective(record);
     }
 

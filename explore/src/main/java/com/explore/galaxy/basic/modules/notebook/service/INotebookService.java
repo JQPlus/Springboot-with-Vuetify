@@ -1,6 +1,7 @@
 package com.explore.galaxy.basic.modules.notebook.service;
 
 import com.explore.galaxy.basic.modules.notebook.entity.NotebookEntity;
+import com.explore.galaxy.basic.utils.responseBody.IBasicResponse;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -8,11 +9,11 @@ import java.util.List;
 public interface INotebookService {
     int deleteByPrimaryKey(String notebookID);
 
-    int insertSelective(NotebookEntity record);
+    IBasicResponse insertSelective(NotebookEntity record);
 
     NotebookEntity selectByPrimaryKey(String notebookID);
 
-    int updateByPrimaryKeySelective(NotebookEntity record);
+    IBasicResponse updateByPrimaryKeySelective(NotebookEntity record);
 
     List<NotebookEntity> retrieveDailyExpense(String strYearMonth);
 

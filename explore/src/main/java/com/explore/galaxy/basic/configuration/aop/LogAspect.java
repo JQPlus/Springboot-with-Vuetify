@@ -2,6 +2,7 @@ package com.explore.galaxy.basic.configuration.aop;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -61,12 +62,15 @@ public class LogAspect {
 //    }
 
     /**
-     * @param ex Exception
-     * @description: 将异常写入到log
+     * @description: 以下两种情况会进到这里
+     * 1.业务逻辑没有try-catch，但是报错
+     * 2.catch中throw了新的运行时异常
+     * 因为事务是基于AOP实现的，所以事务也具有相同的特点，在需要事务回滚的地方都需要加上@Transaction注解
+     * 手动事务 => TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
      */
-    @AfterThrowing(pointcut = "webLog()", throwing = "ex")
-    public void logAfterThrowingAllMethods(Exception ex) throws Throwable {
-        LOGGER.error("****LoggingAspect.logAfterThrowingAllMethods()" + new Date().toString() + ":" + ex);
+    @AfterThrowing(pointcut = "webLog()", throwing = "error")
+    public void logAfterThrowingAllMethods(JoinPoint jp, Throwable error) {
+        LOGGER.error("***Exception Method Signature: " + jp.getSignature()+"has error as belows:" + error);
     }
 //
 //    @AfterReturning("webLog()")

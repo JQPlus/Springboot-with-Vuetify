@@ -45,12 +45,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <groupId>org.junit.vintage</groupId>-->
-<!--                    <artifactId>junit-vintage-engine</artifactId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
+            <!--            <exclusions>-->
+            <!--                <exclusion>-->
+            <!--                    <groupId>org.junit.vintage</groupId>-->
+            <!--                    <artifactId>junit-vintage-engine</artifactId>-->
+            <!--                </exclusion>-->
+            <!--            </exclusions>-->
         </dependency>
 
         <dependency>
@@ -138,6 +138,21 @@
             <artifactId>spring-boot-starter-mail</artifactId>
             <version>2.3.4.RELEASE</version>
         </dependency>
+        <!--redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <!-- redis依赖commons-pool连接池 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+        </dependency>
     </dependencies>
 
 
@@ -153,31 +168,31 @@
             </plugin>
 
             <!--Mybatis-generator插件-->
-<!--            <plugin>-->
-<!--                <groupId>org.mybatis.generator</groupId>-->
-<!--                <artifactId>mybatis-generator-maven-plugin</artifactId>-->
-<!--                <version>1.4.0</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>Generate MyBatis Artifacts</id>-->
-<!--                        <goals>-->
-<!--                            <goal>sendBasicMail</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    <verbose>true</verbose>-->
-<!--                    &lt;!&ndash;每次执行generator时如果文件存在则重写&ndash;&gt;-->
-<!--                    <overwrite>true</overwrite>-->
-<!--                </configuration>-->
-<!--                <dependencies>-->
-<!--                    <dependency>-->
-<!--                        <groupId>mysql</groupId>-->
-<!--                        <artifactId>mysql-connector-java</artifactId>-->
-<!--                        <version>5.1.48</version>-->
-<!--                    </dependency>-->
-<!--                </dependencies>-->
-<!--            </plugin>-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.mybatis.generator</groupId>-->
+            <!--                <artifactId>mybatis-generator-maven-plugin</artifactId>-->
+            <!--                <version>1.4.0</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>Generate MyBatis Artifacts</id>-->
+            <!--                        <goals>-->
+            <!--                            <goal>sendBasicMail</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--                <configuration>-->
+            <!--                    <verbose>true</verbose>-->
+            <!--                    &lt;!&ndash;每次执行generator时如果文件存在则重写&ndash;&gt;-->
+            <!--                    <overwrite>true</overwrite>-->
+            <!--                </configuration>-->
+            <!--                <dependencies>-->
+            <!--                    <dependency>-->
+            <!--                        <groupId>mysql</groupId>-->
+            <!--                        <artifactId>mysql-connector-java</artifactId>-->
+            <!--                        <version>5.1.48</version>-->
+            <!--                    </dependency>-->
+            <!--                </dependencies>-->
+            <!--            </plugin>-->
 
         </plugins>
 

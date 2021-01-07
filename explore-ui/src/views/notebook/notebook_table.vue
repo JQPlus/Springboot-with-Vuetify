@@ -10,26 +10,30 @@
     item-key="notebookID"
     height="280"
     :options="{
-        page: 1,
-        itemsPerPage: 10,
-      }"
+      page: 1,
+      itemsPerPage: 10,
+    }"
     :footer-props="{
       showFirstLastPage: true,
       firstIcon: 'mdi-arrow-collapse-left',
       lastIcon: 'mdi-arrow-collapse-right',
       prevIcon: 'mdi-minus',
       nextIcon: 'mdi-plus',
-      itemsPerPageOptions:[5,10,20,-1],
-      itemsPerPageText:'$vuetify.dataFooter.itemsPerPageText',
+      itemsPerPageOptions: [5, 10, 20, -1],
+      itemsPerPageText: '$vuetify.dataFooter.itemsPerPageText',
     }"
   >
     <template v-slot:item.specificExpense="{ item }">
-      <v-chip small :color="getColor(item.specificExpense)" dark>{{ item.specificExpense }}</v-chip>
+      <v-chip small :color="getColor(item.specificExpense)" dark>{{
+        item.specificExpense
+      }}</v-chip>
     </template>
     <template v-slot:item.remark="{ item }">
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
-          <span v-bind="attrs" v-on="on" v-if="item.remark">{{customRemark(item.remark)}}</span>
+          <span v-bind="attrs" v-on="on" v-if="item.remark">{{
+            customRemark(item.remark)
+          }}</span>
         </template>
         <span>{{ item.remark }}</span>
       </v-tooltip>
@@ -72,7 +76,10 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="6" md="6" v-if="false">
-                    <v-text-field v-model="notebookItem.notebookID" label="Notebook ID"></v-text-field>
+                    <v-text-field
+                      v-model="notebookItem.notebookID"
+                      label="Notebook ID"
+                    ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
                     <v-autocomplete
@@ -97,7 +104,11 @@
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
-                    <v-menu v-model="menu" :close-on-content-click="false" min-width="290px">
+                    <v-menu
+                      v-model="menu"
+                      :close-on-content-click="false"
+                      min-width="290px"
+                    >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
                           v-model="notebookItem.expenseDate"
@@ -151,8 +162,10 @@
     <template v-slot:body.prepend="{ headers }">
       <tr>
         <td :colspan="headers.length">
-          <span>Day Expense: {{dayExpense}}</span>
-          <span style="padding-left:5%">Month Expense: {{monthExpense}}</span>
+          <span>Day Expense: {{ dayExpense }}</span>
+          <span style="padding-left: 5%"
+            >Month Expense: {{ monthExpense }}</span
+          >
         </td>
       </tr>
     </template>
@@ -332,7 +345,7 @@ export default {
           this.$http
             .post(this.$url.updateNotebookInfo, this.notebookItem)
             .then((res) => {
-              if (res > 0) {
+              if (res && res.responseType === "success") {
                 this.initialize();
               }
             });

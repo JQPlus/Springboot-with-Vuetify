@@ -7,7 +7,7 @@ import java.util.concurrent.*;
 
 @Configuration
 public class ThreadPool {
-    private final int CORE_POOL_SIZE = 5;
+    private final int MIN_POOL_SIZE = 5;
     private final int MAX_POOL_SIZE = 100;
 
     /**
@@ -18,8 +18,19 @@ public class ThreadPool {
      */
     @Bean(value = "mailThreadPool")
     public ExecutorService executorService() {
-        ExecutorService executor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAX_POOL_SIZE,
-                60L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
+
+        ThreadPoolExecutor pool = new ThreadPoolExecutor(MIN_POOL_SIZE, MAX_POOL_SIZE,
+                60L, TimeUnit.SECONDS, new LinkedBlockingDeque<>(3000));
+        //拒绝策略
+//        //拒绝当前任务
+//        pool.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardPolicy());
+//        //拒绝队列中最老的任务
+//        pool.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardOldestPolicy());
+//        //异常
+//        pool.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
+        //将任务分给调用线程来执行
+        pool.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+        ExecutorService executor = pool;
         return executor;
     }
 }

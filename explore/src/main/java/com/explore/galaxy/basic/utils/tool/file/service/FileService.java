@@ -143,8 +143,7 @@ public class FileService {
 
 
     public ResponseEntity<FileSystemResource> preview(String folderName, String fileName) {
-        String initFile = "a1a1307177c344954064fac0058d96d6.pdf";
-        deleteFiles(folderName, initFile);
+        String initFile = UUIDUtils.init() + ".pdf";
         Document document = new Document(PageSize.A4);
         try {
             String filePath = findFilePath(folderName, "");
@@ -156,6 +155,7 @@ public class FileService {
                 return getFileStream(new File(filePath + fileName), "PDF");
             } else {
                 FileOutputStream outImage = new FileOutputStream(filePath + initFile);
+                deleteFiles(folderName, initFile);
                 PdfWriter.getInstance(document, outImage);
                 document.open();
                 document.newPage();
@@ -185,11 +185,11 @@ public class FileService {
     private ResponseEntity<FileSystemResource> getFileStream(File file, String streamType) throws IOException {
         HttpHeaders headers = new HttpHeaders();
         MediaType contentType = getMediaType(streamType);
-//        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-//        headers.add("Pragma", "no-cache");
-//        headers.add("Expires", "0");
-//        headers.add("Last-Modified", new Date().toString());
-//        headers.add("ETag", String.valueOf(System.currentTimeMillis()));
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        headers.add("Last-Modified", new Date().toString());
+        headers.add("ETag", String.valueOf(System.currentTimeMillis()));
         String fileName = new String(file.getName().getBytes("UTF-8"), "iso-8859-1");
         headers.add("Content-Disposition", "attachment; filename=" + fileName);
         return ResponseEntity

@@ -22,9 +22,9 @@
 
 <script>
 /* eslint-disable */
-import Header from "@/components/layout/header.vue";
-import Aside from "@/components/layout/navigation.vue";
-import Bread from "@/components/layout/breadcrumbs.vue";
+import Header from "@/components/layout/Header.vue";
+import Aside from "@/components/layout/Navigation.vue";
+import Bread from "@/components/layout/Breadcrumbs.vue";
 export default {
   name: "App",
 

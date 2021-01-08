@@ -9,7 +9,7 @@ import axios from '@/axios/index.js'
 import file from "@/axios/file.js"
 import url from '@/axios/api.js'
 import tools from "@/utils/tools.js"
-import message from "@/components/message.vue"
+import message from "@/components/Message.vue"
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios

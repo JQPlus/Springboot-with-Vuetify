@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-@CacheConfig(cacheNames = CacheNames.NOTEBOOK_CACHE)
+//@CacheConfig(cacheNames = CacheNames.NOTEBOOK_CACHE)
 public class NotebookServiceImpl implements INotebookService {
     @Autowired
     private NotebookMapper notebookMapper;
@@ -62,8 +62,8 @@ public class NotebookServiceImpl implements INotebookService {
     }
 
     @Override
-    @CachePut(key = "'updateByPrimaryKeySelective-' + #record.notebookID",
-            condition = "#result != null")
+//    @CachePut(key = "'updateByPrimaryKeySelective-' + #record.notebookID",
+//            condition = "#result != null")
     public IBasicResponse updateByPrimaryKeySelective(NotebookEntity record) {
         IBasicResponse response = new DataResponse();
         try {
@@ -80,8 +80,8 @@ public class NotebookServiceImpl implements INotebookService {
     }
 
     @Override
-    @Cacheable(key = "'retrieveDailyExpense-' + #strYearMonth",
-            unless = "#result == null || #result.size() <=0")
+//    @Cacheable(key = "'retrieveDailyExpense-' + #strYearMonth",
+//            unless = "#result == null || #result.size() <=0")
     public List<NotebookEntity> retrieveDailyExpense(String strYearMonth) {
         return notebookMapper.retrieveDailyExpense(strYearMonth);
     }

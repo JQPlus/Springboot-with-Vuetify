@@ -6,11 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 @SpringBootApplication
-@EnableCaching
+//@EnableCaching
 @MapperScan(value = {"com.explore.galaxy.basic.modules.*.dao"})
 //@PropertySource(value = {"classpath:druid.properties"}, encoding = "utf-8")
 public class GalaxyApplication {
@@ -22,7 +23,6 @@ public class GalaxyApplication {
 //        {
 //            System.out.println(str);
 //        }
-
         List<String> a = new LinkedList<>();
     }
 

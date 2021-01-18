@@ -15,7 +15,10 @@ const api = {
     // category module
     getCategoryByTypeCode: 'category/getCategoryByTypeCode',
     //mail
-    sendMail:'mail/send'
+    sendMail: 'mail/send'
 }
+Object.keys(api).forEach(el => {
+    api[el] = "api/" + api[el]
+})
 
 export default api

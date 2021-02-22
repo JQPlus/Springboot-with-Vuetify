@@ -15,7 +15,13 @@ const api = {
     // category module
     getCategoryByTypeCode: 'category/getCategoryByTypeCode',
     //mail
-    sendMail: 'mail/send'
+    sendMail: 'mail/send',
+    //file
+    getFilesAfterUpload: "file/getFilesAfterUpload",
+    downloadFile: "file/downloadFile",
+    getFiles: "file/getFiles",
+    deleteFiles: "file/deleteFiles",
+    preview: "file/preview",
 }
 Object.keys(api).forEach(el => {
     api[el] = "api/" + api[el]

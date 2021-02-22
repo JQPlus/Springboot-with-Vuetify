@@ -1,5 +1,6 @@
 import http from "./index.js"
 import request from './interception'
+import api from './api'
 
 /**
  * 
@@ -15,7 +16,7 @@ function upload(files, folderName, extend = { timeout: 60 * 10 * 1000, responseT
     }); 
     formData.append("folderName", folderName);
     return request({
-        url: "file/getFilesAfterUpload",
+        url: api.getFilesAfterUpload,
         method: 'post',
         data: formData,
         responseType: extend.responseType,
@@ -29,7 +30,7 @@ function download(folderName, fileName, extend = { timeout: 60 * 10 * 1000 }) {
         folderName
     }
     return request({
-        url: "file/downloadFile",
+        url: api.downloadFile,
         method: 'post',
         data: formData,
         responseType: 'blob',
@@ -48,7 +49,7 @@ function download(folderName, fileName, extend = { timeout: 60 * 10 * 1000 }) {
 
 function getFiles(folderName) {
     let files = []
-    http.get("file/getFiles", { folderName: folderName })
+    http.get(api.getFiles, { folderName: folderName })
         .then((res) => {
             files = res
         });
@@ -61,7 +62,7 @@ function remove(folderName, fileName, extend = { timeout: 60 * 10 * 1000 }) {
         folderName
     }
     return request({
-        url: "file/deleteFiles",
+        url: api.deleteFiles,
         method: 'delete',
         data: formData,
         responseType: 'json',
@@ -77,7 +78,7 @@ function preview(folderName, fileName, extend = { timeout: 60 * 1000 * 10 }) {
         folderName
     }
     return request({
-        url: "file/preview",
+        url: api.preview,
         method: 'post',
         data: formData,
         responseType: 'blob',

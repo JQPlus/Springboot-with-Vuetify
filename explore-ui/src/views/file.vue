@@ -35,7 +35,7 @@ export default {
       this.$file.download("test", "test.xlsx");
       },
     previewFile() {
-      this.$file.preview("test", "Space.png");
+      this.$file.preview("test", "ESTRES.png");
     },
     sendMail() {
       let entity = {

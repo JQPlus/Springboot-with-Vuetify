@@ -1,13 +1,5 @@
 package com.explore.galaxy.basic.utils.tool.file.service;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import com.explore.galaxy.basic.utils.uuid.UUIDUtils;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -17,8 +9,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class FileService {
@@ -32,23 +30,26 @@ public class FileService {
     @Value("${fileTemplatePath.OS.linux}")
     private String configLinuxTemplatePath;
 
-    private String findFilePath(String folderName, String fileName) {
+    /**
+     * @param folderName
+     * @param fileName   if null, return folder path
+     * @return
+     */
+    private String getPath(String folderName, String fileName) {
         // 操作系统名称
         String osName = System.getProperties().getProperty("os.name");
         String filePath = "";
         if (osName.toLowerCase().contains("windows")) {
             filePath = configWindowsFilePath + folderName + "\\" + fileName;
-            ;
         } else {
             filePath = configLinuxFilePath + folderName + "/" + fileName;
-            ;
         }
         return filePath;
     }
 
     public List<String> getFiles(String folderName) {
         List<String> files = new ArrayList<>();
-        String filePath = findFilePath(folderName, "");
+        String filePath = getPath(folderName, "");
         try {
             File file = new File(filePath);
             File[] tempList = file.listFiles();
@@ -84,7 +85,7 @@ public class FileService {
          // JDK的安装目录
          String jdkDir = System.getProperties().getProperty("java.ext.dirs");
          */
-        String filePath = findFilePath(folderName, "");
+        String filePath = getPath(folderName, "");
         File fileUpload = new File(filePath);
         if (!fileUpload.exists()) {
             fileUpload.mkdirs();
@@ -106,7 +107,7 @@ public class FileService {
 
 
     public int deleteFiles(String folderName, String fileName) {
-        String filePath = findFilePath(folderName, "");
+        String filePath = getPath(folderName, "");
         try {
             File file = new File(filePath);
             File[] fileList = file.listFiles();
@@ -123,57 +124,22 @@ public class FileService {
 
 
     public ResponseEntity<FileSystemResource> downloadFile(String folderName, String fileName) throws IOException {
-        String filePath = findFilePath(folderName, "");
+        String filePath = getPath(folderName, "");
         File file = new File(filePath, fileName);
-        return getFileStream(file, "OTHER");
+        return getFileOutStream(file, "OTHER");
     }
-
-
-    public File getFile(String folderName, String fileName) {
-        // 操作系统名称
-        String osName = System.getProperties().getProperty("os.name");
-        String filePath = "";
-        if (osName.toLowerCase().contains("windows")) {
-            filePath = configWindowsFilePath + folderName + "\\" + fileName;
-        } else {
-            filePath = configLinuxFilePath + folderName + "/" + fileName;
-        }
-        return new File(filePath);
-    }
-
 
     public ResponseEntity<FileSystemResource> preview(String folderName, String fileName) {
-        String initFile = UUIDUtils.init() + ".pdf";
-        Document document = new Document(PageSize.A4);
         try {
-            String filePath = findFilePath(folderName, "");
-            File file = new File(filePath);
+            String prefixFilePath = getPath(folderName, "");
+            File file = new File(prefixFilePath);
             if (!file.exists()) {
                 file.mkdirs();
             }
             if (fileName.contains(".pdf")) {
-                return getFileStream(new File(filePath + fileName), "PDF");
+                return getFileOutStream(new File(prefixFilePath + fileName), "PDF");
             } else {
-                FileOutputStream outImage = new FileOutputStream(filePath + initFile);
-                deleteFiles(folderName, initFile);
-                PdfWriter.getInstance(document, outImage);
-                document.open();
-                document.newPage();
-                //添加标题
-                document.add(new Paragraph(fileName));
-                Image img = Image.getInstance(filePath + fileName);
-                img.setAlignment(Image.LEFT | Image.TEXTWRAP);
-                img.setBorder(Image.BOX);
-                img.setBorderWidth(20);
-                img.setBorderColor(BaseColor.WHITE);
-                img.setAlignment(Image.MIDDLE);
-                img.scalePercent(20);
-                img.setRotationDegrees(0);//旋转
-                document.add(img);
-                outImage.flush();
-                document.close();
-                outImage.close();
-                return getFileStream(new File(filePath + initFile), "PDF");
+                return imgToPDF(folderName, prefixFilePath, fileName);
             }
         } catch (Exception e) {
             return null;
@@ -182,7 +148,39 @@ public class FileService {
         }
     }
 
-    private ResponseEntity<FileSystemResource> getFileStream(File file, String streamType) throws IOException {
+    private ResponseEntity<FileSystemResource> imgToPDF(String folderName, String prefixFilePath, String fileName) throws IOException, DocumentException {
+        String randomFileName = UUIDUtils.init() + ".pdf";
+        try {
+            Document document = new Document(PageSize.A4);
+            //创建一个img的输出流
+            FileOutputStream outImage = new FileOutputStream(prefixFilePath + randomFileName);
+            //将输出流写入到document中
+            PdfWriter.getInstance(document, outImage);
+            document.open();
+            document.newPage();
+            //添加标题
+            document.add(new Paragraph(fileName));
+            //获取当前img对象,并进行设置
+            Image img = Image.getInstance(prefixFilePath + fileName);
+            img.setAlignment(Image.LEFT | Image.TEXTWRAP);
+            img.setBorder(Image.BOX);
+            img.setBorderWidth(20);
+            img.setBorderColor(BaseColor.WHITE);
+            img.setAlignment(Image.MIDDLE);
+            img.scalePercent(20);
+            img.setRotationDegrees(0);//旋转
+            document.add(img);
+            outImage.flush();
+            document.close();
+            outImage.close();
+            return getFileOutStream(new File(prefixFilePath + randomFileName), "PDF");
+        } catch (Exception e) {
+            deleteFiles(folderName, randomFileName);
+        }
+        return null;
+    }
+
+    private ResponseEntity<FileSystemResource> getFileOutStream(File file, String streamType) throws IOException {
         HttpHeaders headers = new HttpHeaders();
         MediaType contentType = getMediaType(streamType);
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
